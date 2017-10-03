@@ -40,8 +40,26 @@ type Post implements Node {
   description: String!
   imageUrl: String!
   location: String
+  image: File @relation(name: "PostImage")
+}
+
+```
+Update the ``File`` type
+
+```graphql
+type File implements Node {
+  id: ID! @isUnique
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  contentType: String!
+  name: String!
+  secret: String! @isUnique
+  size: Int!
+  url: String! @isUnique
+  image: [Post!]! @relation(name: "PostImage")
 }
 ```
+
 Push the changes to your Graph.cool account
 
 ```sh
@@ -71,6 +89,16 @@ return fetch('__RELAY_API_ENDPOINT__', {
  ...
 })  
 ```
+
+Copy the `File API` endpoint to `./src/components/CreatePage.js` as the argument for the call to `fetch` :
+
+```js
+// replace `__FILE_API_ENDPOINT__ ` with the endpoint from the previous step
+return fetch('__FILE_API_ENDPOINT__', {
+ ...
+})  
+```
+
 
 ### 4. Install dependencies & run locally
 

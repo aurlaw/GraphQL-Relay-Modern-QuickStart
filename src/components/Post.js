@@ -4,7 +4,7 @@ import {
   graphql
 } from 'react-relay';
 import DeletePostMutation from '../mutations/DeletePostMutation';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 
 class Post extends React.Component {
 
@@ -26,6 +26,8 @@ class Post extends React.Component {
             className='red f6 pointer dim' 
             onClick={this._handleDelete}
           >Delete</span>
+
+        <Link to={`/edit/${this.props.post.id}`}>Edit</Link>
         </div>
       </div>
     )

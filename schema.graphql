@@ -1,12 +1,31 @@
 # source: https://api.graph.cool/relay/v1/cj8al659x0g8d0123n4dq1vff
-# timestamp: Mon Oct 02 2017 16:22:02 GMT-0400 (Eastern Daylight Time)
+# timestamp: Tue Oct 03 2017 14:41:02 GMT-0400 (Eastern Daylight Time)
+
+input AddToPostImageFileInput {
+  imagePostId: ID!
+  imageFileId: ID!
+  clientMutationId: String!
+}
+
+type AddToPostImagePayload {
+  viewer: Viewer!
+  clientMutationId: String!
+  imageFile: File
+  imagePost: Post
+  imageFileEdge: FileEdge
+  imagePostEdge: PostEdge
+}
 
 input CreateFile {
   name: String!
+  imageIds: [ID!]
+  image: [FileimagePost!]
 }
 
 input CreateFileInput {
   name: String!
+  imageIds: [ID!]
+  image: [FileimagePost!]
   clientMutationId: String!
 }
 
@@ -21,12 +40,16 @@ input CreatePost {
   description: String!
   imageUrl: String!
   location: String
+  imageId: ID
+  image: PostimageFile
 }
 
 input CreatePostInput {
   description: String!
   imageUrl: String!
   location: String
+  imageId: ID
+  image: PostimageFile
   clientMutationId: String!
 }
 
@@ -35,6 +58,7 @@ type CreatePostPayload {
   clientMutationId: String!
   post: Post
   edge: PostEdge
+  image: File
 }
 
 # If authentication was successful the payload contains the user and a token. If unsuccessful this payload is null.
@@ -69,6 +93,7 @@ type DeletePostPayload {
   clientMutationId: String!
   post: Post
   edge: PostEdge
+  image: File
   deletedId: ID
 }
 
@@ -89,6 +114,7 @@ type File implements Node {
   contentType: String!
   createdAt: DateTime!
   id: ID!
+  image(filter: PostFilter, orderBy: PostOrderBy, skip: Int, after: String, before: String, first: Int, last: Int): PostConnection
   name: String!
   secret: String!
   size: Int!
@@ -389,6 +415,15 @@ input FileFilter {
 
   # All values not ending with the given string.
   url_not_ends_with: String
+  image_every: PostFilter
+  image_some: PostFilter
+  image_none: PostFilter
+}
+
+input FileimagePost {
+  description: String!
+  imageUrl: String!
+  location: String
 }
 
 enum FileOrderBy {
@@ -422,6 +457,8 @@ type Mutation {
   deleteFile(input: DeleteFileInput!): DeleteFilePayload
   deletePost(input: DeletePostInput!): DeletePostPayload
   deleteUser(input: DeleteUserInput!): DeleteUserPayload
+  addToPostImage(input: AddToPostImageFileInput!): AddToPostImagePayload
+  removeFromPostImage(input: RemoveFromPostImageFileInput!): RemoveFromPostImagePayload
   createUser(input: SignupUserInput!): CreateUserPayload!
 }
 
@@ -450,6 +487,7 @@ type Post implements Node {
   createdAt: DateTime!
   description: String!
   id: ID!
+  image(filter: FileFilter): File
   imageUrl: String!
   location: String
   updatedAt: DateTime!
@@ -686,6 +724,13 @@ input PostFilter {
 
   # All values greater than or equal the given value.
   updatedAt_gte: DateTime
+  image: FileFilter
+}
+
+input PostimageFile {
+  name: String!
+  imageIds: [ID!]
+  image: [FileimagePost!]
 }
 
 enum PostOrderBy {
@@ -713,6 +758,21 @@ type Query {
   ): Node
 }
 
+input RemoveFromPostImageFileInput {
+  imagePostId: ID!
+  imageFileId: ID!
+  clientMutationId: String!
+}
+
+type RemoveFromPostImagePayload {
+  viewer: Viewer!
+  clientMutationId: String!
+  imageFile: File
+  imagePost: Post
+  imageFileEdge: FileEdge
+  imagePostEdge: PostEdge
+}
+
 input SignupUserInput {
   clientMutationId: String!
 }
@@ -720,11 +780,15 @@ input SignupUserInput {
 input UpdateFile {
   id: ID!
   name: String
+  imageIds: [ID!]
+  image: [FileimagePost!]
 }
 
 input UpdateFileInput {
   id: ID!
   name: String
+  imageIds: [ID!]
+  image: [FileimagePost!]
   clientMutationId: String!
 }
 
@@ -759,6 +823,7 @@ type UpdateOrCreatePostPayload {
   clientMutationId: String!
   post: Post
   edge: PostEdge
+  image: File
 }
 
 input UpdateOrCreateUserInput {
@@ -778,6 +843,8 @@ input UpdatePost {
   id: ID!
   imageUrl: String
   location: String
+  imageId: ID
+  image: PostimageFile
 }
 
 input UpdatePostInput {
@@ -785,6 +852,8 @@ input UpdatePostInput {
   id: ID!
   imageUrl: String
   location: String
+  imageId: ID
+  image: PostimageFile
   clientMutationId: String!
 }
 
@@ -793,6 +862,7 @@ type UpdatePostPayload {
   clientMutationId: String!
   post: Post
   edge: PostEdge
+  image: File
 }
 
 input UpdateUser {

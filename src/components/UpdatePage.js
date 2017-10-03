@@ -1,21 +1,21 @@
 import React from 'react'
-import { QueryRenderer, graphql } from 'react-relay'
+import { QueryRenderer, createFragmentContainer, graphql } from 'react-relay'
 import environment from '../createRelayEnvironment'
 import { withRouter, Link } from 'react-router-dom'
-import CreatePostMutation from '../mutations/CreatePostMutation'
+import UpdatePostMutation from '../mutations/UpdatePostMutation'
 import Dropzone from 'react-dropzone'
-
-const CreatePageViewerQuery = graphql`
-  query CreatePageViewerQuery {
+const UpdatePageViewerQuery = graphql`
+  query UpdatePageViewerQuery {
     viewer {
-      id
-    }
+            id
+    }     
   }
 `;
 
-class CreatePage extends React.Component {
+class UpdatePage extends React.Component {
 
   state = {
+    id: '',
     description: '',
     imageUrl: '',
     location: '',
@@ -23,16 +23,28 @@ class CreatePage extends React.Component {
   }
 
   render () {
-    return (
+    const variables = {
+        postId: this.props.match.params.id
+      }  
+     return (
       <QueryRenderer 
         environment={environment}
-        query={CreatePageViewerQuery}
+        query={UpdatePageViewerQuery}
+        variables={variables}
         render={({error, props}) => {
           if (error) {
             return (
               <div>{error.message}</div>
             )
           } else if (props) {
+            this.setState({
+              id: props.data.viewer.id,
+              description: props.data.viewer.description,
+              imageId: props.data.viewer.image.id,
+              location: props.data.viewer.location,
+              imageUrl: props.data.viewer.imageUrl,
+           })
+
             return (
               <div className='w-100 pa4 flex justify-center'>
                 <div style={{ maxWidth: 400 }} className=''>
@@ -103,10 +115,35 @@ class CreatePage extends React.Component {
     })
   }
   _handlePost = (viewerId) => {
-    const {description, imageUrl, location, imageId} = this.state
-    CreatePostMutation(description, imageUrl, location, imageId, viewerId,  () => this.props.history.replace('/'))
+    const {id, description, imageUrl, location, imageId} = this.state
+    //CreatePostMutation(description, imageUrl, location, imageId, viewerId,  () => this.props.history.replace('/'))
   }
 
 }
-
-export default withRouter(CreatePage)
+export default createFragmentContainer(UpdatePage, graphql`
+fragment UpdatePage_Query on Query  {
+    viewer {
+        Post(id: $id) {
+            id
+            description
+            imageUrl
+            location
+            image {
+              id
+            }
+        }
+    }
+  }
+`,
+{
+    getVariables(props, {id}, fragmentVariables) {
+      return {id}
+    },
+    query: graphql`
+      query UpdatePage_PostUpdate_Query($id: ID!) {
+        ...UpdatePage_Query
+      }
+    `
+  }
+)
+//export default withRouter(UpdatePage)

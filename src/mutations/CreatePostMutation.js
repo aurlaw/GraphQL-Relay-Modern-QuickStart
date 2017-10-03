@@ -13,6 +13,9 @@ const mutation = graphql`
         description
         imageUrl
         location
+        image {
+          url
+        }
       }
     }
   }
@@ -20,12 +23,13 @@ const mutation = graphql`
 
 let tempID = 0;
 
-export default function CreatePostMutation(description, imageUrl, location, viewerId, callback) {
+export default function CreatePostMutation(description, imageUrl, location, imageId, viewerId, callback) {
   const variables = {
     input: {
       description,
       imageUrl,
       location,
+      imageId,
       clientMutationId: ""
     },
   }
@@ -47,6 +51,7 @@ export default function CreatePostMutation(description, imageUrl, location, view
         newPost.setValue(description, 'description')
         newPost.setValue(imageUrl, 'imageUrl')
         newPost.setValue(location, 'location')
+        newPost.setValue(imageId, 'imageId')
         
         // 2 - add `newPost` to the store
         const viewerProxy = proxyStore.get(viewerId)

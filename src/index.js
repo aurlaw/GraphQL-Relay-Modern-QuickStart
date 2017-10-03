@@ -7,12 +7,14 @@ import './index.css';
 // components
 import Home from './components/Home';
 import CreatePage from './components/CreatePage';
+import UpdatePost from './components/UpdatePage'
 
 render(
   <Router>
     <Switch>
       <Route exact path="/" component={Home}/>
       <Route path="/create" component={CreatePage} />
+      <Route path='/edit/:id' component={UpdatePost}/>
       <Route path="*" render={() => <h1>Not found</h1>} />
     </Switch>
   </Router>
