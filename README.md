@@ -15,8 +15,8 @@ For more information on how to get started [refer to the full react-relay-instag
 ### 1. Clone example repository
 
 ```sh
-git clone https://github.com/graphcool-examples/react-graphql.git
-cd react-graphql/quickstart-with-relay-modern
+git clone https://github.com/GatesmanAgency/GraphQL-Relay-Modern-QuickStart.git
+cd GraphQL-Relay-Modern-QuickStart.
 ```
 
 ### 2. Create GraphQL API with [`graphcool`](https://www.npmjs.com/package/graphcool)
@@ -27,6 +27,7 @@ npm install -g graphcool
 
 # Create a new project based on the Instagram schema
 graphcool init 
+
 ```
 
 This will create a basic template. Add the following type to the ``project.graphcool`` file
@@ -106,6 +107,14 @@ return fetch('__FILE_API_ENDPOINT__', {
 yarn install
 yarn relay # invoke relay compiler
 yarn start # open http://localhost:3000 in your browser
+```
+
+### 5. Deploy
+
+```sh
+#Netlify
+npm install netlify-cli -g
+netlify deploy
 ```
 
 ## Next steps
