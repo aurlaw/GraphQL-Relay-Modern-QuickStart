@@ -2,7 +2,7 @@ import React from 'react'
 import { QueryRenderer, graphql } from 'react-relay'
 import environment from '../createRelayEnvironment'
 import { withRouter, Link } from 'react-router-dom'
-// import UpdatePostMutation from '../mutations/UpdatePostMutation'
+import UpdatePostMutation from '../mutations/UpdatePostMutation'
 import Dropzone from 'react-dropzone'
 
 const UpdatePageViewerQuery = graphql`
@@ -31,22 +31,7 @@ class UpdatePage extends React.Component {
   }
   state = {
     id: '',
-    // description: '',
-    // imageUrl: '',
-    // location: '',
-    // imageId: '',
   }
-  // relayProps = {}
-
-  // prepState = (props) => {
-  //   console.log('props', props);
-  //   this.setState({
-  //     description: props.viewer.Post.description,
-  //     imageUrl: props.viewer.Post.imageUrl,
-  //     location: props.viewer.Post.location,
-  //     imageId: props.viewer.Post.image.id,
-  //   })
-  // }
 
   render () {
     const variables = {
@@ -75,10 +60,10 @@ class UpdatePage extends React.Component {
   }
 
   _OnPost = (viewerId, post) => {
-    console.log('_OnPost', viewerId)
-    console.log('_OnPost', post)
-    // const {id, description, imageUrl, location, imageId} = this.state
-    //CreatePostMutation(description, imageUrl, location, imageId, viewerId,  () => this.props.history.replace('/'))
+    // console.log('_OnPost', viewerId)
+    // console.log('_OnPost', post)
+    const {id, description, imageUrl, location, imageId} = post
+    UpdatePostMutation(id, description, imageUrl, location, imageId, viewerId,  () => this.props.history.replace('/'))
   }
 
 
@@ -92,7 +77,7 @@ class PageLayout extends React.Component {
       description: props.viewer.Post.description,
       imageUrl: props.viewer.Post.imageUrl,
       location: props.viewer.Post.location,
-      imageId: props.viewer.Post.image.id,
+      imageId: props.viewer.Post.image ? props.viewer.Post.image.id : '',
     };
   }  
 
@@ -108,14 +93,8 @@ class PageLayout extends React.Component {
     return (
       <div className='w-100 pa4 flex justify-center'>
         <div style={{ maxWidth: 400 }} className=''>
-          ID: {this.state.id}
-          <input
-            className='w-100 pa3 mv2'
-            value={this.state.description}
-            placeholder='Description'
-            onChange={(e) => this.setState({description: e.target.value})}
-          />
-          <input
+          ID: {this.state.id}<br/>
+          Location: <input
             className='w-100 pa3 mv2'
             value={this.state.location}
             placeholder='Location'
@@ -134,12 +113,19 @@ class PageLayout extends React.Component {
             multiple={false}
           >
             <div>To replace main image: Drop an image or click to choose</div>
-          </Dropzone>                  
-          {this.state.description && this.state.imageUrl &&
-            <button className='pa3 bg-black-10 bn dim ttu pointer' onClick={() => this._handlePost(this.props.viewer.id)}>Post</button>
-          }
+          </Dropzone>        
+          Desc: <textarea
+            className='w-100 pa3 mv2'
+            value={this.state.description}
+            placeholder='Description'
+            onChange={(e) => this.setState({description: e.target.value})}
+          />
+                    
           <div style={{textAlign: "center", color: "red"}}>
-            <Link to="/" >Cancel</Link>
+          {this.state.description && this.state.imageUrl &&
+            <button className='pa3 bg-navy bn dim ttu pointer white' onClick={() => this._handlePost(this.props.viewer.id)}>Post</button>
+          }
+            <Link to="/" className='pa3 bg-red bn dim ttu pointer link black-90'>Cancel</Link>
           </div>
         </div>
       </div>

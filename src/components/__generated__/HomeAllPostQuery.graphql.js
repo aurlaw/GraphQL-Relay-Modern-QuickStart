@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash afc5e75b92d7e3cd2c331f2762951664
+ * @relayHash 1d99e871b5e191e7ce9b7d334a945c49
  */
 
 /* eslint-disable */
@@ -25,7 +25,7 @@ query HomeAllPostQuery {
 
 fragment ListPage_viewer on Viewer {
   ...Post_viewer
-  allPosts(last: 100, orderBy: createdAt_DESC) {
+  allPosts(last: 100, orderBy: updatedAt_DESC) {
     edges {
       node {
         id
@@ -133,7 +133,7 @@ const batch /*: ConcreteBatch*/ = {
                   {
                     "kind": "Literal",
                     "name": "orderBy",
-                    "value": "createdAt_DESC",
+                    "value": "updatedAt_DESC",
                     "type": "PostOrderBy"
                   }
                 ],
@@ -273,7 +273,7 @@ const batch /*: ConcreteBatch*/ = {
                     ]
                   }
                 ],
-                "storageKey": "allPosts{\"last\":100,\"orderBy\":\"createdAt_DESC\"}"
+                "storageKey": "allPosts{\"last\":100,\"orderBy\":\"updatedAt_DESC\"}"
               },
               {
                 "kind": "LinkedHandle",
@@ -288,7 +288,7 @@ const batch /*: ConcreteBatch*/ = {
                   {
                     "kind": "Literal",
                     "name": "orderBy",
-                    "value": "createdAt_DESC",
+                    "value": "updatedAt_DESC",
                     "type": "PostOrderBy"
                   }
                 ],
@@ -304,7 +304,7 @@ const batch /*: ConcreteBatch*/ = {
       }
     ]
   },
-  "text": "query HomeAllPostQuery {\n  viewer {\n    ...ListPage_viewer\n    id\n  }\n}\n\nfragment ListPage_viewer on Viewer {\n  ...Post_viewer\n  allPosts(last: 100, orderBy: createdAt_DESC) {\n    edges {\n      node {\n        id\n        description\n        imageUrl\n        location\n        ...Post_post\n      }\n    }\n    ... on PostConnection {\n      edges {\n        cursor\n        node {\n          __typename\n          id\n        }\n      }\n      pageInfo {\n        endCursor\n        hasNextPage\n        hasPreviousPage\n        startCursor\n      }\n    }\n  }\n}\n\nfragment Post_viewer on Viewer {\n  id\n}\n\nfragment Post_post on Post {\n  id\n  description\n  imageUrl\n  location\n}\n"
+  "text": "query HomeAllPostQuery {\n  viewer {\n    ...ListPage_viewer\n    id\n  }\n}\n\nfragment ListPage_viewer on Viewer {\n  ...Post_viewer\n  allPosts(last: 100, orderBy: updatedAt_DESC) {\n    edges {\n      node {\n        id\n        description\n        imageUrl\n        location\n        ...Post_post\n      }\n    }\n    ... on PostConnection {\n      edges {\n        cursor\n        node {\n          __typename\n          id\n        }\n      }\n      pageInfo {\n        endCursor\n        hasNextPage\n        hasPreviousPage\n        startCursor\n      }\n    }\n  }\n}\n\nfragment Post_viewer on Viewer {\n  id\n}\n\nfragment Post_post on Post {\n  id\n  description\n  imageUrl\n  location\n}\n"
 };
 
 module.exports = batch;

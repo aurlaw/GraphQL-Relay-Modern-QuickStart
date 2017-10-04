@@ -29,7 +29,7 @@ class ListPage extends React.Component {
 export default createFragmentContainer(ListPage, graphql`
   fragment ListPage_viewer on Viewer {
     ...Post_viewer
-    allPosts(last: 100, orderBy: createdAt_DESC) @connection(key: "ListPage_allPosts", filters: []) {
+    allPosts(last: 100, orderBy: updatedAt_DESC) @connection(key: "ListPage_allPosts", filters: []) {
       edges {
         node {
           id

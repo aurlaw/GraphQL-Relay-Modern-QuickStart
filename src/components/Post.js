@@ -10,7 +10,7 @@ class Post extends React.Component {
 
   render () {
     return (
-      <div className='pa3 bg-black-05 ma3'>
+      <div className='pa3  ma3 bg-light-blue'>
         <div
           className='w-100'
           style={{
@@ -23,11 +23,9 @@ class Post extends React.Component {
           {this.props.post.description}&nbsp;
           {this.props.post.location}&nbsp;
           <span 
-            className='red f6 pointer dim' 
+            className='red f6 pointer dim ttu' 
             onClick={this._handleDelete}
-          >Delete</span>
-
-        <Link to={`/edit/${this.props.post.id}`}>Edit</Link>
+          >Delete</span> |  <Link to={`/edit/${this.props.post.id}`} className='f6 link dim ttu pointer navy'>Edit</Link>
         </div>
       </div>
     )

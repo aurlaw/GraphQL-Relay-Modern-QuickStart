@@ -3,7 +3,7 @@ import {
   graphql,
 } from 'react-relay'
 import environment from '../createRelayEnvironment'
-import {ConnectionHandler} from 'relay-runtime'
+// import {ConnectionHandler} from 'relay-runtime'
 
 const mutation = graphql`
   mutation UpdatePostMutation($input: UpdatePostInput!) {
@@ -21,7 +21,7 @@ const mutation = graphql`
   }
 `;
 
-let tempID = 0;
+// let tempID = 0;
 
 export default function UpdatePostMutation(id, description, imageUrl, location, imageId, viewerId, callback) {
   const variables = {
