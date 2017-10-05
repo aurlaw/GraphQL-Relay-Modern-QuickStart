@@ -1,5 +1,5 @@
 # source: https://api.graph.cool/relay/v1/cj8al659x0g8d0123n4dq1vff
-# timestamp: Tue Oct 03 2017 14:41:02 GMT-0400 (Eastern Daylight Time)
+# timestamp: Thu Oct 05 2017 16:24:12 GMT-0400 (Eastern Daylight Time)
 
 input AddToPostImageFileInput {
   imagePostId: ID!
@@ -1018,5 +1018,15 @@ type Viewer {
   File(id: ID, secret: String, url: String): File
   Post(id: ID): Post
   User(id: ID): User
+
+  # Weather
+  weather(city: String!): WeatherPayload
   id: ID!
+}
+
+# WeatherPayload
+type WeatherPayload {
+  temperature: Float!
+  pressure: Float!
+  windSpeed: Float!
 }

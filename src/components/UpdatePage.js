@@ -88,6 +88,7 @@ class PageLayout extends React.Component {
     imageUrl: '',
     location: '',
     imageId: '',
+    isUploading: false
   }
   render () {
     return (
@@ -106,6 +107,9 @@ class PageLayout extends React.Component {
               alt={this.state.description} 
               className='w-100 mv3' 
             />
+          }
+          {this.state.isUploading &&
+            <div>Uploading image...</div>
           }
           <Dropzone
             onDrop={this.onDrop}
@@ -132,6 +136,11 @@ class PageLayout extends React.Component {
     )
   }
   onDrop = (files) => {
+    
+    this.setState({
+      isUploading: true,
+      imageUrl: ''
+    });
     // prepare form data, use data key!
     let data = new FormData()
     data.append('data', files[0])
@@ -146,6 +155,7 @@ class PageLayout extends React.Component {
       this.setState({
         imageId: image.id,
         imageUrl: image.url,
+        isUploading: false,
       })
     })
   }
