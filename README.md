@@ -6,7 +6,7 @@
 
 ## Example 
 
-![](http://imgur.com/3S6fUeI.gif)
+[Demo](https://quickstart-with-relay-modern.netlify.com)
 
 ## Quickstart
 
@@ -116,6 +116,9 @@ yarn start # open http://localhost:3000 in your browser
 npm install netlify-cli -g
 netlify deploy
 ```
+
+
+
 
 ## Next steps
 
