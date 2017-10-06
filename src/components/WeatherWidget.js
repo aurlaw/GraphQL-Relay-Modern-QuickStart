@@ -1,4 +1,19 @@
 import React from 'react'
+import environment from '../createRelayEnvironment'
+import {QueryRenderer,graphql} from 'react-relay'
+  
+
+const WeatherWidgetQuery = graphql`
+query WeatherWidgetQuery($zipCode: String!) {
+    viewer {
+        id
+        weather(zipcode: $zipCode) {
+            temperature
+            description
+          }
+    }   
+}
+`;
 
 
 class WeatherWidget extends React.Component {
@@ -21,10 +36,27 @@ class WeatherWidget extends React.Component {
     render() {
         if(this.state.hasZip) {
            return(
-               <div>
-                    TODO: {this.state.zipcode}
-                    <br/><a href="/" className="ttu f6 pointer" onClick={this._handleReset}>change</a>
-               </div>
+                <QueryRenderer
+                environment={environment}
+                query={WeatherWidgetQuery}
+                variables={{zipCode: this.state.zipcode}}
+                render={({error, props}) => {
+                    if (error) {
+                        return (
+                        <div>E: {error.message}</div>
+                        )
+                    } else if (props) {
+                        return (
+                            <div>
+                            Temp: {props.viewer.weather.temperature} for {this.state.zipcode}<br/>
+                            {props.viewer.weather.description}
+                            <br/><a href="/" className="ttu f6 pointer" onClick={this._handleReset}>change</a>
+                            </div>
+                        )
+                    }
+                    return (<div>loading</div>)
+                }}
+                />
            )     
         } else {
             return(
