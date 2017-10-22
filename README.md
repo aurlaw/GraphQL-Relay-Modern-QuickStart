@@ -6,7 +6,7 @@
 
 ## Example 
 
-[Demo](https://quickstart-with-relay-modern.netlify.com)
+[Demo](https://aurlaw-relay-demo.netlify.com/)
 
 ## Quickstart
 
@@ -15,7 +15,7 @@ For more information on how to get started [refer to the full react-relay-instag
 ### 1. Clone example repository
 
 ```sh
-git clone https://github.com/GatesmanAgency/GraphQL-Relay-Modern-QuickStart.git
+git clone https://github.com/aurlaw/GraphQL-Relay-Modern-QuickStart.git
 cd GraphQL-Relay-Modern-QuickStart.
 ```
 

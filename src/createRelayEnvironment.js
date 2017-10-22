@@ -10,7 +10,7 @@ function fetchQuery(
   operation,
   variables,
 ) {
-  return fetch('https://api.graph.cool/relay/v1/cj8al659x0g8d0123n4dq1vff', {
+  return fetch('https://api.graph.cool/relay/v1/cj921y8np0hd501684whj9jkn', {
     method: 'POST',
     headers: {
       'Accept': 'application/json',

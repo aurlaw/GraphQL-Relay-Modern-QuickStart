@@ -94,7 +94,7 @@ class CreatePage extends React.Component {
     data.append('data', files[0])
 
     // use the file endpoint
-    fetch('https://api.graph.cool/file/v1/cj8al659x0g8d0123n4dq1vff', {
+    fetch('https://api.graph.cool/file/v1/cj921y8np0hd501684whj9jkn', {
       method: 'POST',
       body: data
     }).then(response => {
