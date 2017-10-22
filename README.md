@@ -125,6 +125,20 @@ netlify deploy
 
 Coming Soon
 
+Requires Expo client
+
+[Android](https://play.google.com/store/apps/details?id=host.exp.exponent&amp;referrer=www)
+[iOS](https://itunes.apple.com/app/apple-store/id982107779?ct=www&amp;mt=8)
+
+
+
+```sh
+cd rnrlay
+yarn install
+yarn run
+```
+
+
 
 ## Next steps
 
